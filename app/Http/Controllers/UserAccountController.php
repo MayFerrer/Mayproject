@@ -83,26 +83,30 @@ class UserAccountController extends Controller
 
         $dbUser = UserAccount::find($user->id);
         $dbUser->password = Hash::make($request->new_password);
-        $dbUser->defaultpassword = null;
+        
+        // Set to a non-null placeholder to prevent integrity error
+        $dbUser->defaultpassword = 'updated'; // or any value to show it's no longer default
         $dbUser->save();
 
-        // Refresh session user data with updated info
+        // Refresh session user data
         Session::put('user', $dbUser);
 
         return redirect()->route('dashboard')->with('message', 'Password updated successfully.');
     }
 
     // Dashboard page (protected)
-    public function dashboard()
-    {
-        $user = Session::get('user');
+   // Dashboard page (protected)
+public function dashboard()
+{
+    $user = Session::get('user');
 
-        if (!$user) {
-            return redirect()->route('users.login')->with('error', 'Please log in first.');
-        }
-
-        return view('dashboard');
+    if (!$user) {
+        return redirect()->route('users.login')->with('error', 'Please log in first.');
     }
+
+    return view('dashboard', ['username' => $user->username]);
+}
+
 
     // Handle logout
     public function logout(Request $request)

@@ -5,7 +5,8 @@
     <!-- Dashboard Header -->
     <div class="row">
         <div class="col-12 text-center my-5">
-            <h1 class="display-5 fw-bold">Welcome Back, May Marie!</h1>
+            <h1 class="display-5 fw-bold">Welcome Back, {{ $username }}!</h1>
+
             <p class="lead">Track your activities, monitor stats, and manage everything in one place.</p>
         </div>
     </div>

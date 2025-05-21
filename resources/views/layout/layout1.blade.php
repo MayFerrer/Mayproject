@@ -75,9 +75,10 @@
                             <form method="POST" action="{{ route('logout') }}" style="display:inline;">
                                 @csrf
                                 <button type="submit" class="btn btn-link nav-link text-white p-0 border-0 bg-transparent" 
-                                        style="cursor:pointer;">
-                                    Logout ({{ session('user')->username }})
+                                    style="cursor:pointer;">
+                                     Logout
                                 </button>
+
                             </form>
                         </li>
                     @else
