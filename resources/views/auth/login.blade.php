@@ -35,7 +35,7 @@
     <div class="card-form">
         @if(session('user'))
             <h3 class="text-center text-primary mb-4">Welcome, {{ session('user')->username }}</h3>
-            <a href="{{ route('dashboard') }}" class="btn btn-custom w-100">Go to Dashboard</a>
+            <a href="{{ route('update-password') }}" class="btn btn-custom w-100">Update Password</a>
         @else
             <h3 class="text-center text-primary mb-4">Login</h3>
             @if(session('error'))

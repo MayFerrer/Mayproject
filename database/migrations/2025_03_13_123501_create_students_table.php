@@ -15,7 +15,8 @@ class CreateStudentsTable extends Migration
             $table->string('mname')->nullable();
             $table->string('lname');
             $table->string('address');
-            $table->string('contact'); // CHANGED from contactno to contact
+            $table->string('contact');
+            $table->string('image_path')->nullable(); // <-- Added image path column
             $table->timestamps();
         });
     }

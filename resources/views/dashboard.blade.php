@@ -97,7 +97,7 @@
         <div class="col-12 text-center">
             <h4 class="mb-3">Quick Navigation</h4>
             <div class="d-flex justify-content-center flex-wrap gap-3">
-                <a href="{{ route('students') }}" class="btn btn-outline-primary">📚 Manage Students</a>
+                <a href="{{ route('students.index') }}" class="btn btn-outline-primary">📚 Manage Students</a>
                 <a href="{{ route('aboutus') }}" class="btn btn-outline-info">ℹ️ About Us</a>
                 <a href="{{ route('contactus') }}" class="btn btn-outline-success">✉️ Contact Us</a>
             </div>

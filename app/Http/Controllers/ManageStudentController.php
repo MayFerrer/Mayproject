@@ -7,120 +7,96 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
+
+
 
 class ManageStudentController extends Controller
 {
     // Show all students
     public function index()
     {
-        $students = Student::orderBy('created_at', 'desc')->paginate(5);
-        return view('students', ['students' => $students]);
+
+
+    $students = Student::paginate(3); // show 10 students per page
+    return view('students.index', compact('students'));
+
+        $students = Student::all();
+        return view('students.index', compact('students'));
     }
 
-    // Show the form to create a new student
     public function create()
     {
-        return view('addStudentForm');
+        return view('students.create');
     }
 
-    // Store a newly created student
     public function store(Request $request)
-{
-    $validated = $request->validate([
-        'studentid' => 'required|min:4|max:20|unique:students,studentid',
-        'fname'     => 'required|min:3|max:50',
-        'mname'     => 'nullable|min:3|max:20',
-        'lname'     => 'required|min:3|max:50',
-        'address'   => 'required|string|max:255',
-        'contact'   => 'required|digits:11|regex:/^09\d{9}$/',
-    ]);
-    Student::create($validated);
-
-    Log::info('Student added', [
-        'data' => $validated,
-        'ip' => $request->ip(),
-        'time' => now()
-    ]);
-
-
-    return redirect()->route('students.index')->with('message', 'Student added successfully!');
-}
-
-
-    // Show a specific student's details
-    public function show($id)
     {
-        $student = Student::findOrFail($id);
-        return view('showStudent', compact('student'));
-    }
-
-    // Show the form to edit an existing student
-    public function edit($id)
-    {
-        $student = Student::findOrFail($id);
-        return view('editStudentForm', compact('student'));
-
-
-    }
-
-    // Update an existing student's information
-    public function update(Request $request, $id)
-    {
-        $student = Student::findOrFail($id);
-
         $request->validate([
-            'studentid' => 'required|string|max:255',
-            'fname'     => 'required|string|max:255',
-            'mname'     => 'nullable|string|max:255',
-            'lname'     => 'required|string|max:255',
-            'address'   => 'required|string|max:255',
-            'contact'   => 'required|string|max:15',
+            'fname' => 'required',
+            'lname' => 'required',
+            'address' => 'required',
+            'contact' => 'required',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
-        // Compare original and new values
-        if (
-            $request->studentid === $request->original_studentid &&
-            $request->fname === $request->original_fname &&
-            $request->mname === $request->original_mname &&
-            $request->lname === $request->original_lname &&
-            $request->address === $request->original_address &&
-            $request->contact === $request->original_contact
-        ) {
-            return redirect()->back()->with('info', 'No changes detected.');
+        $year = Carbon::now()->year;
+        $yy = substr($year, -2);
+
+        $count = Student::whereYear('created_at', $year)->count() + 1;
+        $studentId = "S-{$yy}-{$count}";
+
+        $imagePath = null;
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('images', 'public');
         }
 
-        // Update student
-        $student->update([
-            'studentid' => $request->studentid,
-            'fname'     => $request->fname,
-            'mname'     => $request->mname,
-            'lname'     => $request->lname,
-            'address'   => $request->address,
-            'contact'   => $request->contact,
+        Student::create([
+            'studentid' => $studentId,
+            'fname' => $request->fname,
+            'mname' => $request->mname,
+            'lname' => $request->lname,
+            'address' => $request->address,
+            'contact' => $request->contact,
+            'image_path' => $imagePath,
         ]);
 
-
-        return redirect('students')->with('message', 'Student updated successfully.');
+        return redirect()->route('students.index')->with('success', 'Student added successfully.');
     }
 
-
-
-
-
-    // Delete a student
-    public function destroy($id)
+    public function edit(Student $student)
     {
-        $student = Student::findOrFail($id);
+        return view('students.edit', compact('student'));
+    }
 
-        Log::warning('Student deleted', [
-            'data' => $student->toArray(),
-            'ip' => request()->ip(),
-            'time' => now()
+    public function update(Request $request, Student $student)
+    {
+        $request->validate([
+            'fname' => 'required',
+            'lname' => 'required',
+            'address' => 'required',
+            'contact' => 'required',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
-        $student->delete();
+        $data = $request->only(['fname', 'mname', 'lname', 'address', 'contact']);
 
+        if ($request->hasFile('image')) {
+            // Remove old image
+            if ($student->image_path && Storage::disk('public')->exists($student->image_path)) {
+                Storage::disk('public')->delete($student->image_path);
+            }
 
-        return redirect('/students')->with('message', 'Student deleted successfully!');
+            // Store new image
+            $data['image_path'] = $request->file('image')->store('images', 'public');
+        }
+
+        $student->update($data);
+
+        return redirect()->route('students.index')->with('success', 'Student updated successfully.');
     }
+
+    
 }
+

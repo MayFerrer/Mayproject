@@ -66,7 +66,7 @@
                         <a class="nav-link text-white" href="{{ route('conditional', ['grade' => 10]) }}">Conditional</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="{{ route('students', ['grade' => 10]) }}">Student List</a>
+                        <a class="nav-link text-white" href="{{ route('students.index') }}">Student List</a>
                     </li>
 
                     {{-- Logout button always visible when session user exists --}}
