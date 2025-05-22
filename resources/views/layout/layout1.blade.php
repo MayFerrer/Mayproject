@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Laravel Layout</title>
+    <title>May's Company</title>
 
-    <!-- Bootstrap CSS -->
+    <!-- Bootstrap CSS (fallback for when internet is available) -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" />
 
-    <!-- Optional: Custom CSS -->
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}" />
+    <!-- Custom CSS (will work offline) -->
+    <link rel="stylesheet" href="{{ asset('css/custom.css') }}" />
 
-    <!-- Font Awesome (optional, for icons) -->
+    <!-- Font Awesome (fallback for when internet is available) -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
 
     <style>
@@ -96,7 +96,7 @@
     </main>
 
     <footer class="text-white text-center py-3">
-        <p>&copy; {{ date('Y') }} Your Website. All Rights Reserved.</p>
+        <p>&copy; {{ date('Y') }} May's Company. All Rights Reserved.</p>
         <p>
             <a href="https://facebook.com" class="text-white mx-2"><i class="fab fa-facebook"></i></a>
             <a href="https://twitter.com" class="text-white mx-2"><i class="fab fa-twitter"></i></a>

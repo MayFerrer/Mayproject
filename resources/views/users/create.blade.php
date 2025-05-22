@@ -2,62 +2,73 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Create User</title>
+    <title>Create Account - May's Company</title>
+    <!-- Bootstrap CSS (fallback) -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            background: linear-gradient(to right, #3dadb7, #2e8b94);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-family: 'Segoe UI', sans-serif;
-        }
-        .card-form {
-            background: #fff;
-            border-radius: 16px;
-            padding: 2.5rem;
-            width: 100%;
-            max-width: 400px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
-        }
-        .btn-custom {
-            background-color: #3dadb7;
-            color: #fff;
-            transition: all 0.3s ease;
-        }
-        .btn-custom:hover {
-            background-color: #2e8b94;
-        }
-    </style>
+    <!-- Font Awesome (fallback) -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <!-- Custom CSS (will work offline) -->
+    <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
 </head>
 <body>
-    <div class="card-form">
-        <h3 class="text-center text-primary mb-4">Create New User</h3>
+    <div class="d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+        <div class="card-form">
+            <h2 class="text-center mb-4" style="color: var(--salmon-pink);">Create Account</h2>
 
-        @if(session('message'))
-            <div class="alert alert-success">{{ session('message') }}</div>
-        @endif
-
-        <form method="POST" action="{{ route('users.store') }}">
-            @csrf
-            <div class="mb-3">
-                <label class="form-label">Username</label>
-                <input type="text" name="username" class="form-control" required>
-                @error('username')
-                    <small class="text-danger">{{ $message }}</small>
-                @enderror
-            </div>
-            <div class="mb-3">
-                <div class="alert alert-info">
-                    A default password will be assigned. You'll be prompted to change it after login.
+            @if(session('message'))
+                <div class="alert alert-success">
+                    <i class="fas fa-check-circle me-2"></i>
+                    {{ session('message') }}
                 </div>
+            @endif
+
+            <form method="POST" action="{{ route('users.store') }}" class="needs-validation" novalidate>
+                @csrf
+                <div class="mb-4">
+                    <label class="form-label">Username</label>
+                    <div class="input-group">
+                        <span class="input-group-text" style="background-color: var(--light-gray); border: none;">
+                            <i class="fas fa-user" style="color: var(--text-medium);"></i>
+                        </span>
+                        <input type="text" name="username" class="form-control" required>
+                    </div>
+                    @error('username')
+                        <small class="text-danger">{{ $message }}</small>
+                    @enderror
+                </div>
+
+                <div class="alert alert-info mb-4">
+                    <i class="fas fa-info-circle me-2"></i>
+                    A default password (Changeme123) will be assigned. You'll be prompted to change it after login.
+                </div>
+
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-custom py-2">Create Account</button>
+                </div>
+            </form>
+
+            <div class="text-center mt-4">
+                <a href="{{ route('login') }}" style="color: var(--salmon-pink); text-decoration: none;">
+                    <i class="fas fa-arrow-left me-1"></i> Back to Login
+                </a>
             </div>
-            <button class="btn btn-custom w-100">Create User</button>
-            <div class="mt-3 text-center">
-                <a href="{{ route('login') }}" class="text-decoration-none">Back to Login</a>
-            </div>
-        </form>
+        </div>
     </div>
+
+    <style>
+        body {
+            background: linear-gradient(135deg, var(--salmon-pink), var(--beige));
+        }
+        
+        .input-group-text {
+            border-top-left-radius: 8px;
+            border-bottom-left-radius: 8px;
+        }
+        
+        .form-control {
+            border-top-right-radius: 8px;
+            border-bottom-right-radius: 8px;
+        }
+    </style>
 </body>
 </html>
