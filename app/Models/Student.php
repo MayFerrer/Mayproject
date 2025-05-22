@@ -9,9 +9,9 @@ class Student extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
+  protected $fillable = [
         'studentid', 'fname', 'mname', 'lname', 'email', 'address', 'contact', 'image_path'
-    ];
+];
 
     /**
      * Get the user account associated with the student.

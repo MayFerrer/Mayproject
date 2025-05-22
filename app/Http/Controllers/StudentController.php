@@ -15,7 +15,7 @@ class StudentController extends Controller
     {
         // Get students with their user account information using eager loading
         $students = Student::with('userAccount')->paginate(3);
-            
+
         return view('students.index', compact('students'));
     }
 

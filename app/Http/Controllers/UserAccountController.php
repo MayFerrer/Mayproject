@@ -98,17 +98,17 @@ class UserAccountController extends Controller
         return redirect()->route('dashboard')->with('message', 'Password updated successfully.');
     }
 
-    // Dashboard page (protected)
-    public function dashboard()
-    {
-        $user = Session::get('user');
+   // Dashboard page (protected)
+public function dashboard()
+{
+    $user = Session::get('user');
 
-        if (!$user) {
-            return redirect()->route('users.login')->with('error', 'Please log in first.');
-        }
-
-        return view('dashboard', ['username' => $user->username]);
+    if (!$user) {
+        return redirect()->route('users.login')->with('error', 'Please log in first.');
     }
+
+    return view('dashboard', ['username' => $user->username]);
+}
 
     // Handle logout
     public function logout(Request $request)
