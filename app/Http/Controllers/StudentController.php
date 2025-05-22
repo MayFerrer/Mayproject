@@ -38,8 +38,21 @@ class StudentController extends Controller
         $year = Carbon::now()->year;
         $yy = substr($year, -2);
 
-        $count = Student::whereYear('created_at', $year)->count() + 1;
-        $studentId = "S-{$yy}-{$count}";
+        // Fix for studentid generation - get the highest existing ID and increment
+        $highestId = 0;
+        $latestStudent = Student::where('studentid', 'like', "S-{$yy}-%")
+            ->orderByRaw('CAST(SUBSTRING_INDEX(studentid, "-", -1) AS UNSIGNED) DESC')
+            ->first();
+            
+        if ($latestStudent) {
+            // Extract the number part from the ID (e.g., get "3" from "S-25-3")
+            $parts = explode('-', $latestStudent->studentid);
+            $highestId = (int)end($parts);
+        }
+        
+        // Increment to get the next ID
+        $nextId = $highestId + 1;
+        $studentId = "S-{$yy}-{$nextId}";
 
         $imagePath = null;
         if ($request->hasFile('image')) {
