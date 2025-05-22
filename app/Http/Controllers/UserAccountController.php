@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Session;
 
 class UserAccountController extends Controller
 {
+    // Default password for all new accounts
+    private const DEFAULT_PASSWORD = 'Changeme123';
+    
     // Show form to create a new user
     public function create()
     {
@@ -20,16 +23,15 @@ class UserAccountController extends Controller
     {
         $request->validate([
             'username' => 'required|unique:user_accounts,username',
-            'defaultpassword' => 'required|min:6',
         ]);
 
         UserAccount::create([
             'username' => $request->username,
-            'password' => Hash::make($request->defaultpassword),
-            'defaultpassword' => $request->defaultpassword,
+            'password' => Hash::make(self::DEFAULT_PASSWORD),
+            'defaultpassword' => self::DEFAULT_PASSWORD,
         ]);
 
-        return redirect()->back()->with('message', 'User created successfully.');
+        return redirect()->back()->with('message', 'User created successfully. Use the default password "'.self::DEFAULT_PASSWORD.'" to log in.');
     }
 
     // Show login form
@@ -55,8 +57,10 @@ class UserAccountController extends Controller
         // Store user in session
         Session::put('user', $user);
 
-        if ($request->password === $user->defaultpassword) {
-            return redirect()->route('password.update.form');
+        // Check if user is using the default password
+        if ($user->defaultpassword && $user->defaultpassword !== 'updated') {
+            return redirect()->route('password.update.form')
+                ->with('message', 'Please update your default password to continue.');
         }
 
         return redirect()->route('dashboard');
@@ -95,18 +99,16 @@ class UserAccountController extends Controller
     }
 
     // Dashboard page (protected)
-   // Dashboard page (protected)
-public function dashboard()
-{
-    $user = Session::get('user');
+    public function dashboard()
+    {
+        $user = Session::get('user');
 
-    if (!$user) {
-        return redirect()->route('users.login')->with('error', 'Please log in first.');
+        if (!$user) {
+            return redirect()->route('users.login')->with('error', 'Please log in first.');
+        }
+
+        return view('dashboard', ['username' => $user->username]);
     }
-
-    return view('dashboard', ['username' => $user->username]);
-}
-
 
     // Handle logout
     public function logout(Request $request)

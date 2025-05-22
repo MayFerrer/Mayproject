@@ -48,14 +48,15 @@
                     <small class="text-danger">{{ $message }}</small>
                 @enderror
             </div>
-            <div class="mb-4">
-                <label class="form-label">Default Password</label>
-                <input type="password" name="defaultpassword" class="form-control" required>
-                @error('defaultpassword')
-                    <small class="text-danger">{{ $message }}</small>
-                @enderror
+            <div class="mb-3">
+                <div class="alert alert-info">
+                    A default password will be assigned. You'll be prompted to change it after login.
+                </div>
             </div>
             <button class="btn btn-custom w-100">Create User</button>
+            <div class="mt-3 text-center">
+                <a href="{{ route('login') }}" class="text-decoration-none">Back to Login</a>
+            </div>
         </form>
     </div>
 </body>
