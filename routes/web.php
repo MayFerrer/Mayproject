@@ -61,4 +61,21 @@ Route::middleware('session.user')->group(function () {
     Route::get('/conditional/{grade?}', [PageController::class, 'conditional'])->name('conditional');
 });
 
+// Test route to create a user account
+Route::get('/test-create-user', function () {
+    $user = new \App\Models\UserAccount([
+        'username' => 'testuser',
+        'password' => \Illuminate\Support\Facades\Hash::make('password123'),
+        'defaultpassword' => 'Changeme123', // This is now a string
+        'status' => 'active',
+    ]);
+    
+    try {
+        $user->save();
+        return 'User created successfully with ID: ' . $user->id;
+    } catch (\Exception $e) {
+        return 'Error creating user: ' . $e->getMessage();
+    }
+});
+
 
