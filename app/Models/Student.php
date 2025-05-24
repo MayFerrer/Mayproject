@@ -9,15 +9,15 @@ class Student extends Model
 {
     use HasFactory;
 
-  protected $fillable = [
-        'studentid', 'fname', 'mname', 'lname', 'email', 'address', 'contact', 'image_path'
-];
+    protected $fillable = [
+        'studentid', 'fname', 'mname', 'lname', 'email', 'address', 'contact', 'image_path', 'user_account_id'
+    ];
 
     /**
      * Get the user account associated with the student.
      */
     public function userAccount()
     {
-        return $this->hasOne(UserAccount::class, 'useraccount_id', 'id');
+        return $this->belongsTo(UserAccount::class, 'user_account_id');
     }
 }

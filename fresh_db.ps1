@@ -14,6 +14,19 @@ Write-Host "Clearing cache..." -ForegroundColor Cyan
 php artisan cache:clear
 php artisan config:clear
 php artisan route:clear
+php artisan view:clear
+
+# Delete the migration that might be causing issues
+if (Test-Path "database/migrations/2025_05_24_fix_defaultpassword_column.php") {
+    Write-Host "Removing old migration file..." -ForegroundColor Yellow
+    Remove-Item "database/migrations/2025_05_24_fix_defaultpassword_column.php" -Force
+}
+
+# Make sure our new migration exists
+if (-not (Test-Path "database/migrations/2025_05_25_000000_fix_defaultpassword_column.php")) {
+    Write-Host "Migration for fixing defaultpassword column not found!" -ForegroundColor Red
+    exit 1
+}
 
 # Drop all tables and recreate them
 Write-Host "Refreshing database..." -ForegroundColor Cyan
