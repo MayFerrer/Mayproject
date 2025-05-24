@@ -2,12 +2,28 @@
 
 @section('content')
 <div class="container">
-    <h2>Edit Student</h2>
-    <form action="{{ route('students.update', $student->id) }}" method="POST" enctype="multipart/form-data">
-        @csrf
-        @method('PUT')
-        @include('students.form', ['student' => $student])
-        <button type="submit" class="btn btn-primary">Update</button>
-    </form>
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="d-flex align-items-center">
+                <a href="{{ route('students.index') }}" class="btn btn-sm me-3" style="background-color: var(--mauve); color: white;">
+                    <i class="fas fa-arrow-left"></i>
+                </a>
+                <h1 class="heading-font mb-0">Edit Student</h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="card border-0 shadow-sm mb-4">
+        <div class="card-body p-4">
+            <form action="{{ route('students.update', $student->id) }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                @method('PUT')
+                @include('students.form')
+                <div class="d-flex justify-content-end">
+                    <button type="submit" class="btn btn-primary px-4">Update Student</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 @endsection
