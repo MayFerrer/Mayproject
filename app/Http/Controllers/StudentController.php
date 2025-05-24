@@ -75,12 +75,16 @@ class StudentController extends Controller
         $defaultPassword = $studentId . $request->fname;
         
         // Create the user account
-        UserAccount::create([
-            'useraccount_id' => $student->id,
+        $userAccount = UserAccount::create([
             'username' => $request->email,
             'password' => Hash::make($defaultPassword),
-            'defaultpassword' => $defaultPassword,
+            'defaultpassword' => (string)$defaultPassword,
             'status' => 'active',
+        ]);
+        
+        // Update the student with the user account ID
+        $student->update([
+            'user_account_id' => $userAccount->id
         ]);
 
         return redirect()->route('students.index')->with('success', 'Student added successfully.');
@@ -133,12 +137,16 @@ class StudentController extends Controller
             // Create a new user account if it doesn't exist
             $defaultPassword = $student->studentid . $student->fname;
             
-            UserAccount::create([
-                'useraccount_id' => $student->id,
+            $userAccount = UserAccount::create([
                 'username' => $request->email,
                 'password' => Hash::make($defaultPassword),
-                'defaultpassword' => $defaultPassword,
+                'defaultpassword' => (string)$defaultPassword,
                 'status' => 'active',
+            ]);
+            
+            // Update the student with the user account ID
+            $student->update([
+                'user_account_id' => $userAccount->id
             ]);
         }
 
@@ -179,10 +187,25 @@ class StudentController extends Controller
             ]);
             
             return redirect()->route('students.index')
-                ->with('success', "Student account status changed to {$newStatus}.");
+                ->with('success', "Student account status changed to " . ucfirst($newStatus) . ".");
         }
         
+        // If no user account exists, create one
+        $defaultPassword = $student->studentid . $student->fname;
+        
+        $userAccount = UserAccount::create([
+            'username' => $student->email,
+            'password' => Hash::make($defaultPassword),
+            'defaultpassword' => (string)$defaultPassword,
+            'status' => 'active',
+        ]);
+        
+        // Update the student with the user account ID
+        $student->update([
+            'user_account_id' => $userAccount->id
+        ]);
+        
         return redirect()->route('students.index')
-            ->with('error', 'No user account found for this student.');
+            ->with('success', 'User account created and activated for this student.');
     }
 }

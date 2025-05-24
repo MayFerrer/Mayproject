@@ -59,23 +59,29 @@
                             <td class="px-4 py-3">{{ $student->email }}</td>
                             <td class="px-4 py-3">{{ $student->address }}</td>
                             <td class="px-4 py-3">{{ $student->contact }}</td>
-                            <td class="px-4 py-3">{{ $student->userAccount->username ?? 'N/A' }}</td>
+                            <td class="px-4 py-3">{{ $student->email }}</td>
                             <td class="px-4 py-3">
                                 @if($student->userAccount)
-                                    <a href="{{ route('students.toggle-status', $student->id) }}" class="text-decoration-none">
-                                        <span class="badge rounded-pill px-3 py-2 
-                                            {{ $student->userAccount->status === 'active' ? 'bg-success-subtle text-success' : 'bg-danger-subtle text-danger' }}">
-                                            {{ $student->userAccount->status }}
-                                        </span>
-                                    </a>
+                                    <div class="form-check form-switch">
+                                        <a href="{{ route('students.toggle-status', $student->id) }}" 
+                                           class="d-flex align-items-center text-decoration-none gap-2">
+                                            <div class="form-check-input {{ $student->userAccount->status === 'active' ? 'bg-success' : 'bg-danger' }}" 
+                                                 style="width: 3em; height: 1.5em; cursor: pointer;"
+                                                 role="switch">
+                                            </div>
+                                            <span class="badge {{ $student->userAccount->status === 'active' ? 'bg-success-subtle text-success' : 'bg-danger-subtle text-danger' }}">
+                                                {{ ucfirst($student->userAccount->status) }}
+                                            </span>
+                                        </a>
+                                    </div>
                                 @else
-                                    <span class="badge bg-secondary">N/A</span>
+                                    <span class="badge bg-secondary">No Account</span>
                                 @endif
                             </td>
                             <td class="px-4 py-3">
                                 @if($student->image_path)
                                     <img 
-                                        src="{{ asset('storage/images/' . basename($student->image_path)) }}" 
+                                        src="{{ asset('storage/' . $student->image_path) }}" 
                                         alt="Image of {{ $student->fname }}" 
                                         width="40" 
                                         height="40"
@@ -115,4 +121,11 @@
         {{ $students->links() }}
     </div>
 </div>
+
+<style>
+.form-check-input:checked {
+    background-color: var(--terra) !important;
+    border-color: var(--terra) !important;
+}
+</style>
 @endsection
