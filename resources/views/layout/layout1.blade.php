@@ -29,39 +29,89 @@
             background-color: var(--cream);
             color: var(--charcoal);
             line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
         }
         
         h1, h2, h3, h4, h5, .heading-font {
             font-family: 'Cormorant Garamond', serif;
             font-weight: 400;
         }
-        
-        .navbar {
-            background-color: var(--cream);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            padding: 0.7rem 0;
+
+        /* Sidebar Styles */
+        .sidebar {
+            width: 250px;
+            background-color: var(--charcoal);
+            min-height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            padding: 1rem;
+            z-index: 1000;
         }
-        
-        .navbar-brand {
+
+        .sidebar-brand {
             font-family: 'Cormorant Garamond', serif;
             font-style: italic;
             font-size: 2rem;
-            color: var(--charcoal);
+            color: var(--cream);
+            text-decoration: none;
+            display: block;
+            text-align: center;
+            padding: 1rem 0;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
         }
-        
-        .nav-link {
-            color: var(--charcoal) !important;
-            font-size: 0.9rem;
-            font-weight: 500;
-            letter-spacing: 0.5px;
-            padding: 0.5rem 1.2rem !important;
+
+        .sidebar-brand:hover {
+            color: var(--mauve);
+        }
+
+        .sidebar-nav {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar-nav .nav-item {
+            margin-bottom: 0.5rem;
+        }
+
+        .sidebar-nav .nav-link {
+            color: var(--cream) !important;
+            padding: 0.75rem 1rem;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
             transition: all 0.3s ease;
+            font-size: 0.9rem;
             text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
-        
-        .nav-link:hover {
-            color: var(--terra) !important;
-            background-color: transparent;
+
+        .sidebar-nav .nav-link i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+
+        .sidebar-nav .nav-link:hover {
+            background-color: rgba(255,255,255,0.1);
+            color: var(--mauve) !important;
+        }
+
+        .sidebar-nav .nav-link.active {
+            background-color: var(--terra);
+            color: var(--cream) !important;
+        }
+
+        /* Main Content Styles */
+        .main-content {
+            margin-left: 250px;
+            flex: 1;
+            padding: 2rem;
+            background-color: var(--cream);
+            min-height: 100vh;
         }
         
         .btn-primary {
@@ -102,111 +152,128 @@
             color: var(--terra);
             font-weight: 600;
         }
-        
-        footer {
-            background-color: var(--charcoal);
+
+        /* Logout button style */
+        .logout-btn {
+            background-color: transparent;
+            border: 1px solid var(--mauve);
             color: var(--cream);
-            padding: 2rem 0;
-        }
-        
-        .social-icon {
-            color: var(--cream);
-            font-size: 1.2rem;
-            margin: 0 10px;
-            transition: color 0.3s ease;
-        }
-        
-        .social-icon:hover {
-            color: var(--mauve);
-        }
-        
-        .section-divider {
-            height: 1px;
-            background-color: var(--mauve);
-            margin: 3rem 0;
-            opacity: 0.5;
-        }
-        
-        .auth-btn {
-            border: 1px solid var(--terra);
+            width: 100%;
+            padding: 0.75rem;
+            margin-top: 2rem;
             border-radius: 4px;
-            color: var(--terra) !important;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 0.9rem;
         }
-        
-        .auth-btn:hover {
-            background-color: var(--terra);
-            color: var(--cream) !important;
+
+        .logout-btn:hover {
+            background-color: var(--mauve);
+            color: var(--charcoal);
+        }
+
+        /* Responsive Sidebar */
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+            }
+
+            .sidebar.show {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .sidebar-toggle {
+                display: block;
+                position: fixed;
+                top: 1rem;
+                left: 1rem;
+                z-index: 1001;
+                background-color: var(--charcoal);
+                color: var(--cream);
+                border: none;
+                padding: 0.5rem;
+                border-radius: 4px;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Sidebar Toggle Button (Mobile) -->
+    <button class="sidebar-toggle d-md-none" onclick="toggleSidebar()">
+        <i class="fas fa-bars"></i>
+    </button>
 
-    <header>
-        <nav class="navbar navbar-expand-lg">
-            <div class="container">
-                <a class="navbar-brand" href="{{ route('dashboard') }}">vèle</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ms-auto align-items-center">
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('dashboard') }}">Dashboard</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('aboutus') }}">About Us</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('contactus') }}">Contact Us</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('conditional', ['grade' => 10]) }}">Conditional</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('students.index') }}">Student List</a>
-                        </li>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <a href="{{ route('dashboard') }}" class="sidebar-brand">vèle</a>
+        <ul class="sidebar-nav">
+            <li class="nav-item">
+                <a class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}" href="{{ route('dashboard') }}">
+                    <i class="fas fa-home"></i> Dashboard
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {{ request()->routeIs('students.*') ? 'active' : '' }}" href="{{ route('students.index') }}">
+                    <i class="fas fa-user-graduate"></i> Student List
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {{ request()->routeIs('aboutus') ? 'active' : '' }}" href="{{ route('aboutus') }}">
+                    <i class="fas fa-info-circle"></i> About Us
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {{ request()->routeIs('contactus') ? 'active' : '' }}" href="{{ route('contactus') }}">
+                    <i class="fas fa-envelope"></i> Contact Us
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {{ request()->routeIs('conditional') ? 'active' : '' }}" href="{{ route('conditional', ['grade' => 10]) }}">
+                    <i class="fas fa-tasks"></i> Conditional
+                </a>
+            </li>
+            @if(session()->has('user'))
+                <li class="nav-item mt-auto">
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <button type="submit" class="logout-btn">
+                            <i class="fas fa-sign-out-alt me-2"></i> Logout
+                        </button>
+                    </form>
+                </li>
+            @endif
+        </ul>
+    </div>
 
-                        {{-- Logout button always visible when session user exists --}}
-                        @if(session()->has('user'))
-                            <li class="nav-item ms-2">
-                                <form method="POST" action="{{ route('logout') }}" style="display:inline;">
-                                    @csrf
-                                    <button type="submit" class="btn auth-btn" 
-                                        style="cursor:pointer;">
-                                        Logout
-                                    </button>
-                                </form>
-                            </li>
-                        @else
-                            <li class="nav-item ms-2">
-                                <a class="nav-link auth-btn" href="{{ route('login') }}">Login</a>
-                            </li>
-                        @endif
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-
-    <main class="container py-5">
+    <!-- Main Content -->
+    <div class="main-content">
         @yield('content')
-    </main>
-
-    <footer class="text-center">
-        <div class="container">
-            <p class="mb-3">where style meets sustainability</p>
-            <div class="mb-4">
-                <a href="https://facebook.com" class="social-icon"><i class="fab fa-facebook"></i></a>
-                <a href="https://twitter.com" class="social-icon"><i class="fab fa-twitter"></i></a>
-                <a href="https://instagram.com" class="social-icon"><i class="fab fa-instagram"></i></a>
-                <a href="https://pinterest.com" class="social-icon"><i class="fab fa-pinterest"></i></a>
-            </div>
-            <p class="small">&copy; {{ date('Y') }} Vèle. All Rights Reserved.</p>
-        </div>
-    </footer>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <script>
+        function toggleSidebar() {
+            document.querySelector('.sidebar').classList.toggle('show');
+        }
 
+        // Close sidebar when clicking outside on mobile
+        document.addEventListener('click', function(event) {
+            const sidebar = document.querySelector('.sidebar');
+            const sidebarToggle = document.querySelector('.sidebar-toggle');
+            
+            if (window.innerWidth <= 768) {
+                if (!sidebar.contains(event.target) && !sidebarToggle.contains(event.target)) {
+                    sidebar.classList.remove('show');
+                }
+            }
+        });
+    </script>
 </body>
 </html>

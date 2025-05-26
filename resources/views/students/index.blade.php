@@ -5,7 +5,7 @@
     <!-- Page Header -->
     <div class="row mb-2">
         <div class="col-12">
-            <div>
+                <div>
                 <h1 class="heading-font mb-0 fs-4">Student List</h1>
                 <p class="text-muted mb-0 small">Manage all registered students</p>
             </div>
@@ -96,89 +96,89 @@
         <!-- Students Table -->
         <div class="col-md-8">
             <div class="card border-0 shadow-sm">
-                <div class="card-body p-0">
-                    <div class="table-responsive">
+        <div class="card-body p-0">
+            <div class="table-responsive">
                         <table class="table table-hover align-middle mb-0 small">
-                            <thead style="background-color: var(--cream);">
-                                <tr>
+                    <thead style="background-color: var(--cream);">
+                        <tr>
                                     <th class="px-2 py-2">ID</th>
                                     <th class="px-2 py-2">Student Info</th>
                                     <th class="px-2 py-2">Contact</th>
                                     <th class="px-2 py-2">Status</th>
                                     <th class="px-2 py-2">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($students as $student)
-                                <tr>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($students as $student)
+                        <tr>
                                     <td class="px-2 py-1">{{ $student->studentid }}</td>
                                     <td class="px-2 py-1">
                                         <div class="d-flex align-items-center">
-                                            @if($student->image_path)
+                                    @if($student->image_path)
                                                 <img src="{{ asset('storage/' . $student->image_path) }}" 
                                                      alt="Profile" 
                                                      class="rounded-circle me-2"
                                                      width="24"
                                                      height="24"
                                                      style="object-fit: cover;">
-                                            @else
+                                    @else
                                                 <div class="rounded-circle bg-secondary me-2" 
                                                      style="width: 24px; height: 24px;"></div>
-                                            @endif
-                                            <div>
+                                    @endif
+                                    <div>
                                                 <div class="fw-medium small">{{ $student->fname }} {{ $student->lname }}</div>
                                                 <div class="small text-muted">{{ $student->email }}</div>
-                                            </div>
-                                        </div>
-                                    </td>
+                                    </div>
+                                </div>
+                            </td>
                                     <td class="px-2 py-1">
                                         <div class="small">
                                             <div>{{ $student->contact }}</div>
                                             <div class="text-muted">{{ $student->address }}</div>
-                                        </div>
-                                    </td>
+                                </div>
+                            </td>
                                     <td class="px-2 py-1">
-                                        @if($student->userAccount)
+                                @if($student->userAccount)
                                             <span class="badge bg-success">Active</span>
-                                        @else
+                                @else
                                             <span class="badge bg-warning">Pending</span>
-                                        @endif
-                                    </td>
+                                @endif
+                            </td>
                                     <td class="px-2 py-1">
-                                        <div class="d-flex gap-1">
-                                            <a href="{{ route('students.edit', $student->id) }}" 
+                                <div class="d-flex gap-1">
+                                    <a href="{{ route('students.edit', $student->id) }}" 
                                                class="btn btn-sm py-0 px-1" 
-                                               style="background-color: var(--mauve); color: white;"
-                                               data-bs-toggle="tooltip" 
-                                               data-bs-placement="top" 
-                                               title="Edit Student">
-                                                <i class="fas fa-edit"></i>
-                                            </a>
-                                            <form action="{{ route('students.destroy', $student->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this student?');">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" 
+                                       style="background-color: var(--mauve); color: white;"
+                                       data-bs-toggle="tooltip" 
+                                       data-bs-placement="top" 
+                                       title="Edit Student">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <form action="{{ route('students.destroy', $student->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this student?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" 
                                                         class="btn btn-sm py-0 px-1" 
-                                                        style="background-color: var(--charcoal); color: white;"
-                                                        data-bs-toggle="tooltip" 
-                                                        data-bs-placement="top" 
-                                                        title="Delete Student">
-                                                    <i class="fas fa-trash"></i>
-                                                </button>
-                                            </form>
-                                        </div>
-                                    </td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+                                                style="background-color: var(--charcoal); color: white;"
+                                                data-bs-toggle="tooltip" 
+                                                data-bs-placement="top" 
+                                                title="Delete Student">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
+        </div>
+    </div>
 
-            <!-- Pagination -->
+    <!-- Pagination -->
             <div class="d-flex justify-content-center mt-2">
-                {{ $students->links() }}
+        {{ $students->links() }}
             </div>
         </div>
     </div>
