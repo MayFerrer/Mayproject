@@ -67,4 +67,9 @@ class PageController extends Controller
     {
         return view('student.index');
     }
+
+    public function welcome()
+    {
+        return view('welcome');
+    }
 }

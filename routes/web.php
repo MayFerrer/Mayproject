@@ -8,9 +8,7 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\StudentController;
 
 // Welcome page route (must be before middleware group)
-Route::get('/', function () {
-    return view('welcome');
-})->name('welcome');
+Route::get('/', [PageController::class, 'welcome'])->name('welcome');
 
 // Authentication routes (no session middleware)
 Route::get('/login', [UserAccountController::class, 'showLoginForm'])->name('login');
