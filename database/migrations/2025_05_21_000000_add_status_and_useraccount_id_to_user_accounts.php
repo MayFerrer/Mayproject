@@ -22,6 +22,10 @@ return new class extends Migration
                 $table->unsignedBigInteger('useraccount_id')->nullable()->after('id');
                 $table->index('useraccount_id');
             }
+
+            if (!Schema::hasColumn('user_accounts', 'user_account_id')) {
+                $table->string('user_account_id')->nullable()->after('id');
+            }
         });
     }
 
@@ -41,6 +45,8 @@ return new class extends Migration
                 $table->dropIndex(['useraccount_id']);
                 $table->dropColumn('useraccount_id');
             }
+
+            $table->dropColumn('user_account_id');
         });
     }
 }; 

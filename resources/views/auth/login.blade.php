@@ -170,7 +170,6 @@
                 <div class="d-grid gap-3 mt-4">
                     <button class="btn btn-custom">Sign In</button>
                     <div class="section-divider"></div>
-                    <a href="{{ route('users.create') }}" class="btn btn-outline">Create New Account</a>
                 </div>
             </form>
         @endif

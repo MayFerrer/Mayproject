@@ -19,7 +19,7 @@ class ManageStudentController extends Controller
     {
 
 
-    $students = Student::paginate(3); // show 10 students per page
+    $students = Student::paginate(5); // show 10 students per page
     return view('students.index', compact('students'));
 
         $students = Student::all();

@@ -14,7 +14,7 @@ class StudentController extends Controller
     public function index()
     {
         // Get students with their user account information using eager loading
-        $students = Student::with('userAccount')->paginate(3);
+        $students = Student::with('userAccount')->paginate(5);
 
         return view('students.index', compact('students'));
     }
@@ -38,30 +38,38 @@ class StudentController extends Controller
         $year = Carbon::now()->year;
         $yy = substr($year, -2);
 
-        // Fix for studentid generation - get the highest existing ID and increment
-        $highestId = 0;
-        $latestStudent = Student::where('studentid', 'like', "S-{$yy}-%")
+        // Get the count of students added in the current year
+        $currentYearCount = Student::where('studentid', 'like', "S-{$yy}-%")
             ->orderByRaw('CAST(SUBSTRING_INDEX(studentid, "-", -1) AS UNSIGNED) DESC')
             ->first();
             
-        if ($latestStudent) {
-            // Extract the number part from the ID (e.g., get "3" from "S-25-3")
-            $parts = explode('-', $latestStudent->studentid);
-            $highestId = (int)end($parts);
+        $nextCount = 1;
+        if ($currentYearCount) {
+            $parts = explode('-', $currentYearCount->studentid);
+            $nextCount = (int)end($parts) + 1;
         }
         
-        // Increment to get the next ID
-        $nextId = $highestId + 1;
-        $studentId = "S-{$yy}-{$nextId}";
+        // Generate the new ID in the format S-YY-Count
+        $newId = "S-{$yy}-{$nextCount}";
 
         $imagePath = null;
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('images', 'public');
         }
 
-        // Create the student record
+        // Create the user account first with the same ID
+        $defaultPassword = $newId . $request->fname;
+        $userAccount = UserAccount::create([
+            'username' => $request->email,
+            'password' => Hash::make($defaultPassword),
+            'defaultpassword' => (string)$defaultPassword,
+            'status' => 'active',
+            'user_account_id' => $newId
+        ]);
+
+        // Create the student record with the same ID
         $student = Student::create([
-            'studentid' => $studentId,
+            'studentid' => $newId,
             'fname' => $request->fname,
             'mname' => $request->mname,
             'lname' => $request->lname,
@@ -69,21 +77,6 @@ class StudentController extends Controller
             'address' => $request->address,
             'contact' => $request->contact,
             'image_path' => $imagePath,
-        ]);
-
-        // Generate default password (Studentid + first_name)
-        $defaultPassword = $studentId . $request->fname;
-        
-        // Create the user account
-        $userAccount = UserAccount::create([
-            'username' => $request->email,
-            'password' => Hash::make($defaultPassword),
-            'defaultpassword' => (string)$defaultPassword,
-            'status' => 'active',
-        ]);
-        
-        // Update the student with the user account ID
-        $student->update([
             'user_account_id' => $userAccount->id
         ]);
 
