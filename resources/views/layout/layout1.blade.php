@@ -37,7 +37,7 @@
             font-family: 'Cormorant Garamond', serif;
             font-weight: 400;
         }
-
+        
         /* Sidebar Styles */
         .sidebar {
             width: 250px;
@@ -49,7 +49,7 @@
             padding: 1rem;
             z-index: 1000;
         }
-
+        
         .sidebar-brand {
             font-family: 'Cormorant Garamond', serif;
             font-style: italic;
@@ -62,7 +62,7 @@
             margin-bottom: 1rem;
             border-bottom: 1px solid rgba(255,255,255,0.1);
         }
-
+        
         .sidebar-brand:hover {
             color: var(--mauve);
         }
@@ -152,7 +152,7 @@
             color: var(--terra);
             font-weight: 600;
         }
-
+        
         /* Logout button style */
         .logout-btn {
             background-color: transparent;
@@ -182,8 +182,8 @@
 
             .sidebar.show {
                 transform: translateX(0);
-            }
-
+        }
+        
             .main-content {
                 margin-left: 0;
             }
@@ -207,54 +207,54 @@
     <!-- Sidebar Toggle Button (Mobile) -->
     <button class="sidebar-toggle d-md-none" onclick="toggleSidebar()">
         <i class="fas fa-bars"></i>
-    </button>
+                </button>
 
     <!-- Sidebar -->
     <div class="sidebar">
         <a href="{{ route('dashboard') }}" class="sidebar-brand">vèle</a>
         <ul class="sidebar-nav">
-            <li class="nav-item">
+                        <li class="nav-item">
                 <a class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}" href="{{ route('dashboard') }}">
                     <i class="fas fa-home"></i> Dashboard
                 </a>
-            </li>
-            <li class="nav-item">
+                        </li>
+                        <li class="nav-item">
                 <a class="nav-link {{ request()->routeIs('students.*') ? 'active' : '' }}" href="{{ route('students.index') }}">
                     <i class="fas fa-user-graduate"></i> Student List
                 </a>
-            </li>
-            <li class="nav-item">
+                        </li>
+                        <li class="nav-item">
                 <a class="nav-link {{ request()->routeIs('aboutus') ? 'active' : '' }}" href="{{ route('aboutus') }}">
                     <i class="fas fa-info-circle"></i> About Us
                 </a>
-            </li>
-            <li class="nav-item">
+                        </li>
+                        <li class="nav-item">
                 <a class="nav-link {{ request()->routeIs('contactus') ? 'active' : '' }}" href="{{ route('contactus') }}">
                     <i class="fas fa-envelope"></i> Contact Us
                 </a>
-            </li>
-            <li class="nav-item">
+                        </li>
+                        <li class="nav-item">
                 <a class="nav-link {{ request()->routeIs('conditional') ? 'active' : '' }}" href="{{ route('conditional', ['grade' => 10]) }}">
                     <i class="fas fa-tasks"></i> Conditional
                 </a>
-            </li>
-            @if(session()->has('user'))
+                        </li>
+                        @if(session()->has('user'))
                 <li class="nav-item mt-auto">
                     <form method="POST" action="{{ route('logout') }}">
-                        @csrf
+                                    @csrf
                         <button type="submit" class="logout-btn">
                             <i class="fas fa-sign-out-alt me-2"></i> Logout
-                        </button>
-                    </form>
-                </li>
-            @endif
-        </ul>
-    </div>
+                                    </button>
+                                </form>
+                            </li>
+                        @endif
+                    </ul>
+                </div>
 
     <!-- Main Content -->
     <div class="main-content">
         @yield('content')
-    </div>
+        </div>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>

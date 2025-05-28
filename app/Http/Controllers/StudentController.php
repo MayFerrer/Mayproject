@@ -201,4 +201,12 @@ class StudentController extends Controller
         return redirect()->route('students.index')
             ->with('success', 'User account created and activated for this student.');
     }
+
+    /**
+     * Display the specified student.
+     */
+    public function show(Student $student)
+    {
+        return view('students.show', compact('student'));
+    }
 }

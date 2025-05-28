@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class PageController extends Controller
 {
@@ -35,7 +36,13 @@ class PageController extends Controller
 
     public function dashboard()
     {
-        return view('dashboard');
+        $user = Session::get('user');
+        
+        if (!$user) {
+            return redirect()->route('login')->with('error', 'Please log in first.');
+        }
+
+        return view('dashboard', ['username' => $user->username]);
     }
 
     public function aboutus()

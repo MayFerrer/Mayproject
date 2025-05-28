@@ -17,74 +17,117 @@
         }
         
         body {
-            background-color: var(--cream);
+            background: linear-gradient(135deg, var(--charcoal) 0%, var(--terra) 100%);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             font-family: 'Montserrat', sans-serif;
             color: var(--charcoal);
+            position: relative;
+            overflow: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, var(--mauve) 0%, transparent 50%);
+            opacity: 0.1;
+            animation: rotate 30s linear infinite;
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
         }
         
         .card-form {
-            background: #fff;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
             border-radius: 8px;
-            padding: 2.5rem;
-            width: 100%;
-            max-width: 400px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            padding: 2rem;
+            width: 360px;
+            height: 460px;
+            position: relative;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            flex-direction: column;
         }
         
         h3 {
             font-family: 'Cormorant Garamond', serif;
             font-weight: 400;
             color: var(--terra);
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.25rem;
+            font-size: 1.5rem;
         }
         
         .btn-custom {
-            background-color: var(--terra);
-            border-color: var(--terra);
+            background: linear-gradient(to right, var(--terra), var(--charcoal));
+            border: none;
             color: #fff;
             transition: all 0.3s ease;
-            border-radius: 0;
-            padding: 0.6rem 1rem;
+            border-radius: 4px;
+            padding: 0.7rem 1rem;
             font-weight: 500;
             letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
         }
         
         .btn-custom:hover {
-            background-color: var(--charcoal);
-            border-color: var(--charcoal);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-custom:active {
+            transform: translateY(0);
         }
         
         .btn-outline {
-            background-color: transparent;
-            border: 1px solid var(--terra);
+            background: transparent;
+            border: 2px solid var(--terra);
             color: var(--terra);
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            padding: 0.7rem 1rem;
         }
         
         .btn-outline:hover {
-            background-color: var(--terra);
+            background: linear-gradient(to right, var(--terra), var(--charcoal));
+            border-color: transparent;
             color: white;
         }
         
         .form-control {
-            border-radius: 0;
-            border-color: var(--mauve);
-            padding: 0.7rem 1rem;
-            font-size: 0.95rem;
+            border-radius: 4px;
+            border: 2px solid rgba(195, 166, 160, 0.3);
+            padding: 0.6rem 0.8rem;
+            font-size: 0.9rem;
+            background: rgba(255, 255, 255, 0.9);
+            transition: all 0.3s ease;
         }
         
         .form-control:focus {
             box-shadow: none;
             border-color: var(--terra);
+            background: white;
         }
         
         .form-label {
             color: var(--charcoal);
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-weight: 500;
+            margin-bottom: 0.3rem;
         }
         
         .password-field {
@@ -93,10 +136,11 @@
         
         .password-toggle {
             position: absolute;
-            right: 15px;
-            top: 42px;
+            right: 12px;
+            top: 35px;
             cursor: pointer;
             color: var(--mauve);
+            transition: all 0.3s ease;
         }
         
         .password-toggle:hover {
@@ -104,32 +148,70 @@
         }
         
         .section-divider {
-            height: 1px;
-            background-color: var(--mauve);
-            margin: 1.5rem 0;
-            opacity: 0.5;
+            height: 2px;
+            background: linear-gradient(to right, var(--mauve), var(--terra));
+            margin: 1.25rem 0;
+            opacity: 0.3;
+            border-radius: 2px;
         }
         
         .logo {
             font-family: 'Cormorant Garamond', serif;
             font-style: italic;
-            font-size: 2.5rem;
-            color: var(--charcoal);
-            margin-bottom: 1rem;
+            font-size: 2.2rem;
+            background: linear-gradient(45deg, var(--terra), var(--charcoal));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.3rem;
             text-align: center;
         }
         
         .subtitle {
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             color: var(--mauve);
             text-align: center;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
+            letter-spacing: 1px;
+        }
+
+        .alert {
+            border: none;
+            border-radius: 4px;
+            padding: 0.75rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.9);
+            font-size: 0.85rem;
+        }
+
+        .alert-danger {
+            background: linear-gradient(to right, rgba(220, 53, 69, 0.1), rgba(220, 53, 69, 0.05));
+            color: #dc3545;
+        }
+
+        .alert-success {
+            background: linear-gradient(to right, rgba(40, 167, 69, 0.1), rgba(40, 167, 69, 0.05));
+            color: #28a745;
+        }
+
+        .mb-3 {
+            margin-bottom: 1rem !important;
+        }
+
+        .mb-4 {
+            margin-bottom: 1.25rem !important;
+        }
+
+        .mt-4 {
+            margin-top: 1.25rem !important;
         }
     </style>
 </head>
+
 <body>
     <div class="card-form">
-        <div class="logo">vèle</div>
+        <div class="logo">Mayvèle</div>
         <div class="subtitle">where style meets sustainability</div>
         
         @if(session('user'))
@@ -142,14 +224,14 @@
             <h3 class="text-center">Sign In</h3>
             
             @if(session('error'))
-                <div class="alert alert-danger d-flex align-items-center">
+                <div class="alert alert-danger">
                     <i class="fas fa-exclamation-circle me-2"></i>
                     {{ session('error') }}
                 </div>
             @endif
             
             @if(session('message'))
-                <div class="alert alert-success d-flex align-items-center">
+                <div class="alert alert-success">
                     <i class="fas fa-check-circle me-2"></i>
                     {{ session('message') }}
                 </div>
@@ -168,7 +250,7 @@
                 </div>
                 
                 <div class="d-grid gap-3 mt-4">
-                    <button class="btn btn-custom">Sign In</button>
+                    <button class="btn btn-custom">Log In</button>
                     <div class="section-divider"></div>
                 </div>
             </form>
