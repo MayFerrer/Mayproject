@@ -145,7 +145,7 @@
                                 @endif
                             </td>
                                     <td class="px-2 py-1">
-                                        <div class="d-flex gap-1">
+                                <div class="d-flex gap-1">
                                             <a href="{{ route('students.show', $student->id) }}" 
                                                class="btn btn-sm py-0 px-1" 
                                                style="background-color: var(--terra); color: white;"
@@ -154,31 +154,31 @@
                                                title="View Student">
                                                 <i class="fas fa-eye"></i>
                                             </a>
-                                            <a href="{{ route('students.edit', $student->id) }}" 
+                                    <a href="{{ route('students.edit', $student->id) }}" 
                                                class="btn btn-sm py-0 px-1" 
-                                               style="background-color: var(--mauve); color: white;"
-                                               data-bs-toggle="tooltip" 
-                                               data-bs-placement="top" 
-                                               title="Edit Student">
-                                                <i class="fas fa-edit"></i>
-                                            </a>
+                                       style="background-color: var(--mauve); color: white;"
+                                       data-bs-toggle="tooltip" 
+                                       data-bs-placement="top" 
+                                       title="Edit Student">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
                                             <form action="{{ route('students.destroy', $student->id) }}" 
                                                   method="POST" 
                                                   class="d-inline" 
                                                   onsubmit="return confirm('Are you sure you want to delete this student?');">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" 
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" 
                                                         class="btn btn-sm py-0 px-1" 
-                                                        style="background-color: var(--charcoal); color: white;"
-                                                        data-bs-toggle="tooltip" 
-                                                        data-bs-placement="top" 
-                                                        title="Delete Student">
-                                                    <i class="fas fa-trash"></i>
-                                                </button>
-                                            </form>
-                                        </div>
-                                    </td>
+                                                style="background-color: var(--charcoal); color: white;"
+                                                data-bs-toggle="tooltip" 
+                                                data-bs-placement="top" 
+                                                title="Delete Student">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>

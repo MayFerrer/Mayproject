@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Vèle - Where Style Meets Sustainability</title>
+    <title>Mayvèle - Where Style Meets Sustainability</title>
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
@@ -211,7 +211,7 @@
 
     <!-- Sidebar -->
     <div class="sidebar">
-        <a href="{{ route('dashboard') }}" class="sidebar-brand">vèle</a>
+        <a href="{{ route('dashboard') }}" class="sidebar-brand">Mayvèle</a>
         <ul class="sidebar-nav">
                         <li class="nav-item">
                 <a class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}" href="{{ route('dashboard') }}">

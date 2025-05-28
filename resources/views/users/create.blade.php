@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Create Account | Vèle</title>
+    <title>Create Account | Mayvèle</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -119,7 +119,7 @@
 </head>
 <body>
     <div class="card-form">
-        <div class="logo">vèle</div>
+        <div class="logo">Mayvèle</div>
         <div class="subtitle">where style meets sustainability</div>
         
         <h3 class="text-center">Create Account</h3>

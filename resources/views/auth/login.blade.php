@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Login | Vèle</title>
+    <title>Login | MayMayvèle</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,10 +14,11 @@
             --mauve: #C3A6A0;
             --terra: #A15C38;
             --charcoal: #262220;
+            --light-brown: #E6D5B8;
         }
         
         body {
-            background: linear-gradient(135deg, var(--charcoal) 0%, var(--terra) 100%);
+            background: var(--light-brown);
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -211,7 +212,7 @@
 
 <body>
     <div class="card-form">
-        <div class="logo">Mayvèle</div>
+        <div class="logo">MayMayvèle</div>
         <div class="subtitle">where style meets sustainability</div>
         
         @if(session('user'))

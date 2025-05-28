@@ -124,7 +124,7 @@
                                 <small class="text-muted">Founder, Tech Startup</small>
                             </div>
                         </div>
-                        <p class="card-text mb-0">"The team at vèle is incredible. They truly care about their clients and go above and beyond to provide sustainable fashion that feels luxurious."</p>
+                        <p class="card-text mb-0">"The team at MayMayvèle is incredible. They truly care about their clients and go above and beyond to provide sustainable fashion that feels luxurious."</p>
                     </div>
                 </div>
             </div>
