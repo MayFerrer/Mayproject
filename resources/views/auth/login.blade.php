@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Login | MayMayvèle</title>
+    <title>Login | Vèle</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,11 +14,10 @@
             --mauve: #C3A6A0;
             --terra: #A15C38;
             --charcoal: #262220;
-            --light-brown: #E6D5B8;
         }
         
         body {
-            background: var(--light-brown);
+            background: linear-gradient(135deg, #E8D5C4 0%, #ECDBC9 100%);
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -36,8 +35,8 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle, var(--mauve) 0%, transparent 50%);
-            opacity: 0.1;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, transparent 50%);
+            opacity: 0.3;
             animation: rotate 30s linear infinite;
         }
 
@@ -54,9 +53,10 @@
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             border-radius: 8px;
-            padding: 2rem;
-            width: 360px;
-            height: 460px;
+            padding: 1.5rem;
+            width: 320px;
+            height: auto;
+            min-height: 400px;
             position: relative;
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
             border: 1px solid rgba(255, 255, 255, 0.2);
@@ -68,8 +68,8 @@
             font-family: 'Cormorant Garamond', serif;
             font-weight: 400;
             color: var(--terra);
-            margin-bottom: 1.25rem;
-            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
         }
         
         .btn-custom {
@@ -78,11 +78,12 @@
             color: #fff;
             transition: all 0.3s ease;
             border-radius: 4px;
-            padding: 0.7rem 1rem;
+            padding: 0.6rem 1rem;
             font-weight: 500;
             letter-spacing: 0.5px;
             position: relative;
             overflow: hidden;
+            font-size: 0.9rem;
         }
         
         .btn-custom:hover {
@@ -100,7 +101,8 @@
             color: var(--terra);
             border-radius: 4px;
             transition: all 0.3s ease;
-            padding: 0.7rem 1rem;
+            padding: 0.6rem 1rem;
+            font-size: 0.9rem;
         }
         
         .btn-outline:hover {
@@ -112,8 +114,8 @@
         .form-control {
             border-radius: 4px;
             border: 2px solid rgba(195, 166, 160, 0.3);
-            padding: 0.6rem 0.8rem;
-            font-size: 0.9rem;
+            padding: 0.5rem 0.7rem;
+            font-size: 0.85rem;
             background: rgba(255, 255, 255, 0.9);
             transition: all 0.3s ease;
         }
@@ -151,7 +153,7 @@
         .section-divider {
             height: 2px;
             background: linear-gradient(to right, var(--mauve), var(--terra));
-            margin: 1.25rem 0;
+            margin: 1rem 0;
             opacity: 0.3;
             border-radius: 2px;
         }
@@ -159,31 +161,31 @@
         .logo {
             font-family: 'Cormorant Garamond', serif;
             font-style: italic;
-            font-size: 2.2rem;
+            font-size: 2rem;
             background: linear-gradient(45deg, var(--terra), var(--charcoal));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 0.3rem;
+            margin-bottom: 0.2rem;
             text-align: center;
         }
         
         .subtitle {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             color: var(--mauve);
             text-align: center;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.2rem;
             letter-spacing: 1px;
         }
 
         .alert {
             border: none;
             border-radius: 4px;
-            padding: 0.75rem;
-            margin-bottom: 1rem;
+            padding: 0.6rem;
+            margin-bottom: 0.8rem;
             display: flex;
             align-items: center;
             background: rgba(255, 255, 255, 0.9);
-            font-size: 0.85rem;
+            font-size: 0.8rem;
         }
 
         .alert-danger {
@@ -197,22 +199,22 @@
         }
 
         .mb-3 {
-            margin-bottom: 1rem !important;
+            margin-bottom: 0.8rem !important;
         }
 
         .mb-4 {
-            margin-bottom: 1.25rem !important;
+            margin-bottom: 1rem !important;
         }
 
         .mt-4 {
-            margin-top: 1.25rem !important;
+            margin-top: 1rem !important;
         }
     </style>
 </head>
 
 <body>
     <div class="card-form">
-        <div class="logo">MayMayvèle</div>
+        <div class="logo">Mayvèle</div>
         <div class="subtitle">where style meets sustainability</div>
         
         @if(session('user'))
