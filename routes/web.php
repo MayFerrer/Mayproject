@@ -31,6 +31,9 @@ Route::middleware(['session.user'])->group(function () {
 Route::get('/login', [UserAccountController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [UserAccountController::class, 'login'])->name('users.login');
 
+Route::get('/register', [UserAccountController::class, 'showRegisterForm'])->name('register');
+Route::post('/register', [UserAccountController::class, 'register'])->name('users.register');
+
 Route::get('/users/create', [UserAccountController::class, 'create'])->name('users.create');
 Route::post('/users', [UserAccountController::class, 'store'])->name('users.store');
 

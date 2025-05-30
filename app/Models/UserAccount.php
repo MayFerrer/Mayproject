@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class UserAccount extends Model
 {
-    protected $fillable = ['username', 'password', 'defaultpassword', 'status', 'user_account_id'];
+    protected $fillable = ['username', 'email', 'password', 'defaultpassword', 'status', 'user_account_id'];
 
     protected $hidden = ['password', 'defaultpassword'];
     

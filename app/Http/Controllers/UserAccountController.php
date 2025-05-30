@@ -42,6 +42,36 @@ class UserAccountController extends Controller
         return view('auth.login');
     }
 
+    // Show registration form
+    public function showRegisterForm()
+    {
+        return view('auth.register');
+    }
+
+    // Handle user registration
+    public function register(Request $request)
+    {
+        $request->validate([
+            'username' => 'required|unique:user_accounts,username',
+            'email' => 'required|email|unique:user_accounts,email',
+            'password' => 'required|min:6|confirmed',
+        ]);
+
+        $user = UserAccount::create([
+            'username' => $request->username,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'defaultpassword' => 'updated', // Not using default password since user set their own
+            'status' => 'active',
+        ]);
+
+        // Store user in session
+        Session::put('user', $user);
+
+        return redirect()->route('dashboard')
+            ->with('message', 'Registration successful! Welcome to Mayvèle.');
+    }
+
     // Handle login
     public function login(Request $request)
     {
